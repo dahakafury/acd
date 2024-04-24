@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.aroproj.io
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  source:
+    repoURL       : "demo-prod/applications"
+    path          : "git@github.com:dahakafury/acd.git"
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune     : true
+      self_heal : true
